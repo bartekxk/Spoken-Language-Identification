@@ -1,9 +1,8 @@
 import glob,numpy
 mfcc_counts=13
-file_list = glob.glob("./*")
+file_list = glob.glob("./*.csv")
 iterations=0
 for file in file_list:
-    if file!="./fileConverter.py" and file!="./fileConverter.pyc":
         language = file[2:][:2]
         if language=="de":
             languageNum=1
@@ -12,6 +11,7 @@ for file in file_list:
         if language=="es":
             languageNum=3
         fileContent=numpy.genfromtxt(file,delimiter=',')
+        print(file)
         file=open(file,"w+")
         file.write(str(languageNum)+",")
         for i in range (0,mfcc_counts-1):
