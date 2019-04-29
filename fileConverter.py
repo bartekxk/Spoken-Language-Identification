@@ -11,12 +11,11 @@ for file in file_list:
         if language=="es":
             languageNum=3
         fileContent=numpy.genfromtxt(file,delimiter=',')
-        print(file)
         file=open(file,"w+")
-        file.write(str(languageNum)+",")
-        for i in range (0,mfcc_counts-1):
-            file.write(str(fileContent[i][0])+",")
-        file.write(str(fileContent[mfcc_counts-1][0]))
+        file.write(str(languageNum))
+        for i in range (0,len(fileContent)):
+            for j in range(0,20,5):
+                file.write(","+str(fileContent[i][j]))
         file.close()
         iterations = iterations+1
-        print(str(float(iterations)/(len(file_list)-1)*100)+"%\n")
+        print(str(float(iterations)/(len(file_list))*100)+"%\n")
