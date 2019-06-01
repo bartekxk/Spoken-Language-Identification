@@ -40,13 +40,13 @@ class Gui(QtWidgets.QMainWindow):
     def addLabels(self):
         self.file_path_label=QtWidgets.QLabel(self)
         self.file_path_label.setText("")
-        self.file_path_label.resize(250,50)
+        self.file_path_label.resize(245,50)
         self.file_path_label.move(50,50)
         self.file_path_label.show()
         self.result_label=QtWidgets.QLabel(self)
         self.result_label.setText("")
-        self.result_label.resize(100,50)
-        self.result_label.move(150,350)
+        self.result_label.resize(200,50)
+        self.result_label.move(100,350)
         self.result_label.show()
     def clearDirectory(self):
         files = glob.glob('./tmp/*')
@@ -64,9 +64,9 @@ class Gui(QtWidgets.QMainWindow):
             #sd.play(myrecording, sr)
             sf.write("./tmp/record.wav", myrecording, sr)
             self.recording=False
-            song = AudioSegment.from_wav("./tmp/record.wav")
-            song.export("./tmp/recordf.flac", format="flac")
-            self.process("./tmp/recordf.flac")
+            #song = AudioSegment.from_wav("./tmp/record.wav")
+            #song.export("./tmp/recordf.flac", format="flac")
+            self.process("./tmp/record.wav")
         #else:
          #   self.recordButton.setText("Nagrywaj")
           #  self.recording=False
@@ -122,14 +122,16 @@ class Gui(QtWidgets.QMainWindow):
     def getLanguage(self,arr):
         if arr[0][0]>arr[0][1]:
             if arr[0][0]>arr[0][2]:
-                return "Angielski"
+                lan =  "Angielski "+str(int(arr[0][0]*100))
             else:
-                return "Niemiecki"
+                lan =  "Niemiecki "+str(int(arr[0][2]*100))
         else:
             if arr[0][1] > arr[0][2]:
-                return "Hiszpański"
+                lan =  "Hiszpański "+str(int(arr[0][1]*100))
             else:
-                return "Niemiecki"
+                lan = "Niemiecki "+str(int(arr[0][2]*100))
+
+        return lan + "% dokladnosci"
 
     def process(self,file):
         path=self.spectogram(file)
